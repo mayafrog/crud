@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CRUD</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script type="text/javascript" src="javascripts/CRUD.js" defer></script>
+</head>
+
+<body onload="view_actors()">
+    <div id="vue">
+        <header>
+            <h1>Create Read Update Delete</h1>
+            <p>Simple web application that incorporates create, read, update & elete functionality.</p>
+            <p>Also incorporates escaping query values to avoid SQL injection attacks (functionally same as prepared statements)</p>
+        </header>
+        <main class="container">
+            <div>
+                <div>
+                    <form class="pure-form pure-form-stacked">
+                        <fieldset>
+                            <legend>Add Actor</legend>
+                            <label for="actor-first-name">First Name</label>
+                            <input type="text" id="actor-first-name" placeholder="First Name" />
+                            <label for="actor-last-name">Last Name</label>
+                            <input type="text" id="actor-last-name" placeholder="Last Name" />
+                            <button type="button" class="pure-button pure-button-primary"
+                                onclick="send_new_actor()">Add</button>
+                            <button type="button" class="pure-button pure-button-primary"
+                                onclick="view_actors()">Refresh
+                                list</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div>
+
+                <form class="pure-form pure-form-stacked">
+                    <fieldset>
+                        <legend>Search Actor By Name</legend>
+                        <input type="text" id="actor-search-name" placeholder="Search...">
+                        <button type="button" class="pure-button pure-button-primary"
+                            onclick="search_actors()">Search</button>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div>
+                <form class="pure-form pure-form-stacked">
+                    <fieldset>
+                        <legend>Update / Delete Actor</legend>
+                        <div>
+                            <select v-model="selected">
+                                <option disabled value="">Please select one</option>
+                                <option>Update an actor</option>
+                                <option>Delete an actor</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div>
+                <form class="pure-form pure-form-stacked" v-if="selected == 'Update an actor'">
+                    <fieldset>
+                        <legend>Update Actor</legend>
+                        <label for="actor-first-name-old">Old First Name</label>
+                        <input type="text" id="actor-first-name-old" placeholder="First Name" />
+                        <label for="actor-last-name-old">Old Last Name</label>
+                        <input type="text" id="actor-last-name-old" placeholder="Last Name" />
+                        <br>
+                        <label for="actor-first-name-new">New First Name</label>
+                        <input type="text" id="actor-first-name-new" placeholder="First Name" />
+                        <label for="actor-last-name">New Last Name</label>
+                        <input type="text" id="actor-last-name-new" placeholder="Last Name" />
+                        <button type="button" class="pure-button pure-button-primary"
+                            onclick="update_actor()">Update</button>
+                    </fieldset>
+                </form>
+
+                <form class="pure-form pure-form-stacked" v-if="selected == 'Delete an actor'">
+                    <fieldset>
+                        <legend>Delete Actor</legend>
+                        <label for="actor-first-name-delete">First Name of Actor to delete</label>
+                        <input type="text" id="actor-first-name-delete" placeholder="First Name" />
+                        <label for="actor-last-name-delete">Last Name of Actor to delete</label>
+                        <input type="text" id="actor-last-name-delete" placeholder="Last Name" />
+                        <button type="button" class="pure-button pure-button-primary"
+                            onclick="delete_actor()">Delete</button>
+                    </fieldset>
+                </form>
+
+            </div>
+        </main>
+        <div>
+            <table class="pure-table pure-table-horizontal center">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                </thead>
+                <tbody id="results">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
